@@ -1,4 +1,4 @@
-=== Buddypress Messages Spam Blocker=== 
+﻿=== Buddypress Messages Spam Blocker=== 
 Contributors: Florian Schießl
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NX8D8HYLP9HYS
 Tags: buddypress, spam, messages
@@ -18,14 +18,15 @@ I had some negative experiences with this and so I wrote a module that should he
 Buddypress Messages Spam Blocker introduces some restrictions to your users:
 
 * New users can send messages only 24h after their registration, so you'll have time if bot registrations have to be removed manually
-* Their are restrictions for mass mailings (mails that are sent to "friends" of the contact list are not included in this calculation):
-** Users can send 6 messages maximum in 5 minutes
-** Users can send 10 messages maximum in 10 minutes
-** Users can send 20 messages maximum in 30 minutes
-** Users can send 30 messages maximum in 60 minutes
-** Users can send 35 messages maximum in 12 hours
-** Users can send 45 messages maximum in 24 hours
-** Users can send 50 messages maximum in 48 hours
+
+Their are also some more restrictions for mass mailings (mails that are sent to "friends" of the contact list are not included in this calculation):
+* Users can send 6 messages maximum in 5 minutes
+* Users can send 10 messages maximum in 10 minutes
+* Users can send 20 messages maximum in 30 minutes
+* Users can send 30 messages maximum in 60 minutes
+* Users can send 35 messages maximum in 12 hours
+* Users can send 45 messages maximum in 24 hours
+* Users can send 50 messages maximum in 48 hours
 
 Install, activate, and it will work.
 
