@@ -20,6 +20,7 @@ Buddypress Messages Spam Blocker introduces some restrictions to your users:
 * New users can send messages only 24h after their registration, so you'll have time if bot registrations have to be removed manually
 
 Their are also some more restrictions for mass mailings (mails that are sent to "friends" of the contact list are not included in this calculation):
+
 * Users can send 6 messages maximum in 5 minutes
 * Users can send 10 messages maximum in 10 minutes
 * Users can send 20 messages maximum in 30 minutes
