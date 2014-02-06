@@ -4,7 +4,7 @@
  * Plugin Name: Buddypress Messages Spam Blocker
  * Plugin URI: http://ifs-net.de
  * Description: Fight mass mailings and spam inside buddypress messages
- * Version: 1.0
+ * Version: 1.1
  * Author: Florian Schiessl
  * Author URI: http://ifs-net.de
  * License: GPL2
@@ -31,58 +31,60 @@ function bps_bp_spam_stop() {
 
     $current_user = wp_get_current_user();
     global $wpdb;
-    $abort = false;
-    $offset = (int) get_option('gmt_offset');
-    $current_user = wp_get_current_user();
-    $registeredTimestamp = strtotime($current_user->user_registered);
-    $timeDiff = time() - $registeredTimestamp;
-    $hours = 24;
-    if ($timeDiff < (60 * 60 * $hours)) {
-        bp_core_add_message(sprintf(__('We want to protect other users from spam. New members are only allowed to send messages to other users when their registration is not older than %d hours. Please wait until this time is over and then feel free to write messages to other members!', 'buddypress-messages-spamblocker'), $hours), 'error');
-        $abort = true;
-    } else {
-        // exclude friends from spam mechanism
-        $friendsArray = friends_get_friend_user_ids($current_user->ID);
+    if (!user_can($current_user, 'edit_users')) {
+        $abort = false;
+        $offset = (int) get_option('gmt_offset');
+        $current_user = wp_get_current_user();
+        $registeredTimestamp = strtotime($current_user->user_registered);
+        $timeDiff = time() - $registeredTimestamp;
+        $hours = 24;
+        if ($timeDiff < (60 * 60 * $hours)) {
+            bp_core_add_message(sprintf(__('We want to protect other users from spam. New members are only allowed to send messages to other users when their registration is not older than %d hours. Please wait until this time is over and then feel free to write messages to other members!', 'buddypress-messages-spamblocker'), $hours), 'error');
+            $abort = true;
+        } else {
+            // exclude friends from spam mechanism
+            $friendsArray = friends_get_friend_user_ids($current_user->ID);
 
-        // last 5 Minutes max 6 messages
-        if (!bps_bp_spam_stop_helper_check(5, 6, $friendsArray)) {
-            $abort = true;
-        }
-        // last 10 Minutes max 10 messages
-        else if (!bps_bp_spam_stop_helper_check(10, 10, $friendsArray)) {
-            $abort = true;
-        }
-        // last 30 Minutes max 20 messages
-        else if (!bps_bp_spam_stop_helper_check(30, 20, $friendsArray)) {
-            $abort = true;
-        }
-        // last 60 Minutes max 30 messages
-        else if (!bps_bp_spam_stop_helper_check(60, 30, $friendsArray)) {
-            $abort = true;
-        }
-        // last 12h Minutes max 35 messages
-        else if (!bps_bp_spam_stop_helper_check((60 * 12), 35, $friendsArray)) {
-            $abort = true;
-        }
-        // last 24h Minutes max 40 messages
-        else if (!bps_bp_spam_stop_helper_check((60 * 24), 40, $friendsArray)) {
-            $abort = true;
-        }
-        // last 48h Minutes max 50 messages
-        else if (!bps_bp_spam_stop_helper_check((60 * 48), 50, $friendsArray)) {
-            $abort = true;
-        }
+            // last 5 Minutes max 6 messages
+            if (!bps_bp_spam_stop_helper_check(5, 6, $friendsArray)) {
+                $abort = true;
+            }
+            // last 10 Minutes max 10 messages
+            else if (!bps_bp_spam_stop_helper_check(10, 10, $friendsArray)) {
+                $abort = true;
+            }
+            // last 30 Minutes max 20 messages
+            else if (!bps_bp_spam_stop_helper_check(30, 20, $friendsArray)) {
+                $abort = true;
+            }
+            // last 60 Minutes max 30 messages
+            else if (!bps_bp_spam_stop_helper_check(60, 30, $friendsArray)) {
+                $abort = true;
+            }
+            // last 12h Minutes max 35 messages
+            else if (!bps_bp_spam_stop_helper_check((60 * 12), 35, $friendsArray)) {
+                $abort = true;
+            }
+            // last 24h Minutes max 40 messages
+            else if (!bps_bp_spam_stop_helper_check((60 * 24), 40, $friendsArray)) {
+                $abort = true;
+            }
+            // last 48h Minutes max 50 messages
+            else if (!bps_bp_spam_stop_helper_check((60 * 48), 50, $friendsArray)) {
+                $abort = true;
+            }
 
+            if ($abort) {
+                bp_core_add_message(__('We want to avoid SPAM. You are only allowed to start a limited number of new conversations in a given period. You can add your recipients as friends. There are no restrictions for new conversations you start with your friends!', 'buddypress-messages-spamblocker'), 'error');
+            }
+        }
+        // Check results
         if ($abort) {
-            bp_core_add_message(__('We want to avoid SPAM. You are only allowed to start a limited number of new conversations in a given period. You can add your recipients as friends. There are no restrictions for new conversations you start with your friends!', 'buddypress-messages-spamblocker'), 'error');
+            global $bp;
+            $url = bloginfo('url') . '/' . $bp->members->slug . '/' . $current_user->user_login . '/messages';
+            header('Location: ' . $url);
+            die("redirecting");
         }
-    }
-    // Check results
-    if ($abort) {
-        global $bp;
-        $url = bloginfo('url') . '/' . $bp->members->slug . '/' . $current_user->user_login . '/messages';
-        header('Location: ' . $url);
-        die("redirecting");
     }
 }
 

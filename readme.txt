@@ -29,6 +29,8 @@ Their are also some more restrictions for mass mailings (mails that are sent to 
 * Users can send 45 messages maximum in 24 hours
 * Users can send 50 messages maximum in 48 hours
 
+Users with the capability "edit_users" (admins etc.) have no restrictions for outgoing messages
+
 Install, activate, and it will work.
 
 == Installation ==
@@ -43,6 +45,9 @@ Install, activate, and it will work.
 At the moment they are hardcoded, you can easily chance them inside the code as you need them.
 
 == Changelog ==
+
+= 1.1 =
+* users that have the capability "edit_users" have no restictions for outgoing messages
 
 = 1.0 = 
 * First version.
