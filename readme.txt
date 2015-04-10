@@ -21,13 +21,13 @@ Buddypress Messages Spam Blocker introduces some restrictions to your users:
 
 Their are also some more restrictions for mass mailings (mails that are sent to "friends" of the contact list are not included in this calculation):
 
-* Users can send 6 messages maximum in 5 minutes
-* Users can send 10 messages maximum in 10 minutes
-* Users can send 20 messages maximum in 30 minutes
-* Users can send 30 messages maximum in 60 minutes
-* Users can send 35 messages maximum in 12 hours
-* Users can send 45 messages maximum in 24 hours
-* Users can send 50 messages maximum in 48 hours
+* Users can send 6 messages maximum in 5 minutes (modify this value using filter 'buddypress_messages_spamblocker_5m')
+* Users can send 10 messages maximum in 10 minutes (modify this value using filter 'buddypress_messages_spamblocker_10m')
+* Users can send 20 messages maximum in 30 minutes (modify this value using filter 'buddypress_messages_spamblocker_30m')
+* Users can send 30 messages maximum in 60 minutes (modify this value using filter 'buddypress_messages_spamblocker_60m')
+* Users can send 35 messages maximum in 12 hours (modify this value using filter 'buddypress_messages_spamblocker_12h')
+* Users can send 45 messages maximum in 24 hours (modify this value using filter 'buddypress_messages_spamblocker_24h')
+* Users can send 50 messages maximum in 48 hours (modify this value using filter 'buddypress_messages_spamblocker_48h')
 
 Users with the capability "edit_users" (admins etc.) have no restrictions for outgoing messages
 
@@ -52,6 +52,9 @@ If you have the scope at forums or social networks my other modules might also b
 At the moment they are hardcoded, you can easily chance them inside the code as you need them.
 
 == Changelog ==
+
+= 2.0 =
+* added filters for easy customizing of message quantity that should be able to be sent. See plugin description for details.
 
 = 1.1 =
 * users that have the capability "edit_users" have no restictions for outgoing messages

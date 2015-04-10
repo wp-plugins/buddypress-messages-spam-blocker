@@ -4,7 +4,7 @@
  * Plugin Name: Buddypress Messages Spam Blocker
  * Plugin URI: http://ifs-net.de
  * Description: Fight mass mailings and spam inside buddypress messages
- * Version: 1.1
+ * Version: 2.0
  * Author: Florian Schiessl
  * Author URI: http://ifs-net.de
  * License: GPL2
@@ -46,31 +46,31 @@ function bps_bp_spam_stop() {
             $friendsArray = friends_get_friend_user_ids($current_user->ID);
 
             // last 5 Minutes max 6 messages
-            if (!bps_bp_spam_stop_helper_check(5, 6, $friendsArray)) {
+            if (!bps_bp_spam_stop_helper_check(5, apply_filters('buddypress_messages_spamblocker_5m', 6), $friendsArray)) {
                 $abort = true;
             }
             // last 10 Minutes max 10 messages
-            else if (!bps_bp_spam_stop_helper_check(10, 10, $friendsArray)) {
+            else if (!bps_bp_spam_stop_helper_check(10, apply_filters('buddypress_messages_spamblocker_10m', 10), $friendsArray)) {
                 $abort = true;
             }
             // last 30 Minutes max 20 messages
-            else if (!bps_bp_spam_stop_helper_check(30, 20, $friendsArray)) {
+            else if (!bps_bp_spam_stop_helper_check(30, apply_filters('buddypress_messages_spamblocker_30m', 20), $friendsArray)) {
                 $abort = true;
             }
             // last 60 Minutes max 30 messages
-            else if (!bps_bp_spam_stop_helper_check(60, 30, $friendsArray)) {
+            else if (!bps_bp_spam_stop_helper_check(60, apply_filters('buddypress_messages_spamblocker_60m', 30), $friendsArray)) {
                 $abort = true;
             }
             // last 12h Minutes max 35 messages
-            else if (!bps_bp_spam_stop_helper_check((60 * 12), 35, $friendsArray)) {
+            else if (!bps_bp_spam_stop_helper_check((60 * 12), apply_filters('buddypress_messages_spamblocker_12h', 35), $friendsArray)) {
                 $abort = true;
             }
             // last 24h Minutes max 40 messages
-            else if (!bps_bp_spam_stop_helper_check((60 * 24), 40, $friendsArray)) {
+            else if (!bps_bp_spam_stop_helper_check((60 * 24), apply_filters('buddypress_messages_spamblocker_24d', 40), $friendsArray)) {
                 $abort = true;
             }
             // last 48h Minutes max 50 messages
-            else if (!bps_bp_spam_stop_helper_check((60 * 48), 50, $friendsArray)) {
+            else if (!bps_bp_spam_stop_helper_check((60 * 48), apply_filters('buddypress_messages_spamblocker_48d', 50), $friendsArray)) {
                 $abort = true;
             }
 
