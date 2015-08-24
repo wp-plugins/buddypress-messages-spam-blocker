@@ -4,7 +4,7 @@
  * Plugin Name: Buddypress Messages Spam Blocker
  * Plugin URI: http://ifs-net.de
  * Description: Fight mass mailings and spam inside buddypress messages
- * Version: 2.0
+ * Version: 2.1
  * Author: Florian Schiessl
  * Author URI: http://ifs-net.de
  * License: GPL2
@@ -81,7 +81,7 @@ function bps_bp_spam_stop() {
         // Check results
         if ($abort) {
             global $bp;
-            $url = bloginfo('url') . '/' . $bp->members->slug . '/' . $current_user->user_login . '/messages';
+            $url = bp_loggedin_user_domain() . '/messages';
             header('Location: ' . $url);
             die("redirecting");
         }
