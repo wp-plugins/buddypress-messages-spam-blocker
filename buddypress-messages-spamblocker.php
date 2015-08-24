@@ -113,7 +113,7 @@ function bps_bp_spam_stop_helper_check($minutes, $max, $friendsList) {
         AND date_sent > "' . date("Y-m-d H:i:s", (time() - ($minutes * 60))) . '"';
     if (count($friendsArray) > 0) {
         // Exclude friends
-        $sql_query.='AND r.user_id in (' . implode(", ", $friendsArray) . ')';
+        $sql_query.='AND r.user_id NOT in (' . implode(", ", $friendsArray) . ')';
     }
     $result = $wpdb->get_results($sql_query);
     if ($result[0]->Count >= $max) {
