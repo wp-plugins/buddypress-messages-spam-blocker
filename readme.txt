@@ -55,6 +55,7 @@ At the moment they are hardcoded, you can easily chance them inside the code as 
 
 = 2.1 =
 * fixed little bug for different messages-module-locations (thanks to reflectgrowth)
+* fixed little bug in sql statement (thanks to vizzweb)
 
 = 2.0 =
 * added filters for easy customizing of message quantity that should be able to be sent. See plugin description for details.

@@ -101,6 +101,8 @@ function bps_bp_spam_stop_helper_check($minutes, $max, $friendsList) {
     global $bp;
     $current_user = wp_get_current_user();
     $friendsArray = $friendsList;
+    // exclude own user, too
+    $friendsArray[] = $current_user->ID;
     $sql_query = ' 
         SELECT 
             COUNT(*) as Count
@@ -109,12 +111,12 @@ function bps_bp_spam_stop_helper_check($minutes, $max, $friendsList) {
             ' . $bp->messages->table_name_recipients . ' as r
         WHERE
             r.thread_id = m.thread_id
-        AND sender_id = ' . $current_user->ID . '
-        AND date_sent > "' . date("Y-m-d H:i:s", (time() - ($minutes * 60))) . '"';
-    if (count($friendsArray) > 0) {
-        // Exclude friends
-        $sql_query.='AND r.user_id NOT in (' . implode(", ", $friendsArray) . ')';
-    }
+        AND m.sender_id = ' . $current_user->ID . '
+            
+        AND m.date_sent > "' . date("Y-m-d H:i:s", (time() - ($minutes * 60))) . '"
+        AND r.user_id NOT in (' . implode(", ", $friendsArray) . ')';
+    
+    
     $result = $wpdb->get_results($sql_query);
     if ($result[0]->Count >= $max) {
         return false;
